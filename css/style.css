@@ -29,7 +29,7 @@ body{
     display: flex;
     align-content: space-between;
     justify-content: space-evenly;
-    margin-top: -150px;
+    margin-top: 80px;
 }
 
 .logo{
@@ -140,7 +140,7 @@ h3{
     }
 
     .nav{
-        width: 600px;
+        width: 400px;
     }
     .subheader{
         color: var(--text-color);
