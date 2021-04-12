@@ -5,11 +5,14 @@ const verifyBtn = document.querySelector('.verify-btn');
 const notNum = document.querySelector('.not-number');
 const tooShort = document.querySelector('.number-too-short');
 const resultContainer = document.querySelector('.result-container')
+const body = document.querySelector('#body')
+const darkSwitch = document.querySelector('.checkbox')
 
 
 //add event listeners
 userInput.addEventListener('change', verifyInput)
 verifyBtn.addEventListener('click', verifyNum)
+darkSwitch.addEventListener('click', switchMode)
 
 //Globals 
 
@@ -19,8 +22,8 @@ let result = {};
 
 
 //create functions
-function verifyInput(e){
-    let userNum = e.target.value;    
+function verifyInput(){
+    let userNum = userInput.value;    
 
     if(userNum.length < 11 || userNum.length > 11){
         tooShort.innerHTML = 'Minimum number length should be 11';
@@ -39,21 +42,12 @@ function verifyInput(e){
 }
 
 
-async function verifyNum(){
-    let myKey ='B7FD7E04FDFE45EEB374E8D7F745B1EE'
-    let apiURL = `https://api.veriphone.io/v2/verify?phone=${userInput.value}&key=${myKey}`
-    try {
-        const getNumData = await fetch(apiURL);
-        result = await getNumData.json()
-        console.log(result)
-        displayData()
-
-    } catch (error) {
-        console.log('theres an error: ', error)
-    }
-}
-
 function displayData (){
+    resultContainer.innerHTML = '';
+
+    const div = document.createElement('div')
+    div.setAttribute('class', 'data')
+    
     const status = document.createElement('p')
     status.innerHTML = `Validity: ${result.phone_valid}`;
     const phoneNum = document.createElement('p')
@@ -67,11 +61,46 @@ function displayData (){
     const prefix = document.createElement('p')
     prefix.innerText = `Country Code: ${result.country_prefix}`;
 
-    resultContainer.appendChild(status)
-    resultContainer.appendChild(phoneNum)
-    resultContainer.appendChild(type)
-    resultContainer.appendChild(region)
-    resultContainer.appendChild(carrier)
-    resultContainer.appendChild(prefix)
+    div.appendChild(status)
+    div.appendChild(phoneNum)
+    div.appendChild(type)
+    div.appendChild(region)
+    div.appendChild(carrier)
+    div.appendChild(prefix)
+
+    resultContainer.appendChild(div)
+    tooShort.innerHTML = '';
+    notNum.innerHTML = '';
 }
+
+
+async function verifyNum(){
+    const userText = userInput.value;
+    console.log(userText)
+    if(!userText || userText.length < 11 || userText.length > 11 && isNaN(userText)){
+        tooShort.innerHTML = 'Minimum number length should be 11';
+        notNum.innerHTML = 'This is not a number'
+    }else{
+        let myKey ='B7FD7E04FDFE45EEB374E8D7F745B1EE'
+        let apiURL = `https://api.veriphone.io/v2/verify?phone=${userInput.value}&key=${myKey}`
+        try {
+            const getNumData = await fetch(apiURL);
+            result = await getNumData.json()
+            console.log(result)
+            displayData()
+
+        } catch (error) {
+            console.log('theres an error: ', error)
+    }
+    }
+    
+    
+}
+
+function switchMode(){
+    console.log('clicked the toggle switch')
+    body.classList.toggle('dark-mode')
+}
+
+
 
