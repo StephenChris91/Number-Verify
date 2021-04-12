@@ -25,10 +25,11 @@ body{
 }
 
 .nav{
-    width: 1200px;
+    width: 1000px;
     display: flex;
     align-content: space-between;
     justify-content: space-evenly;
+    margin-top: 50px;
 }
 
 .logo{
