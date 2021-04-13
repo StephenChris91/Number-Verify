@@ -82,7 +82,6 @@ async function verifyNum(){
         tooShort.innerHTML = 'Minimum number length should be 11';
         notNum.innerHTML = 'This is not a number'
         resultContainer.innerHTML = '';
-
     }else{
         let myKey ='B7FD7E04FDFE45EEB374E8D7F745B1EE'
         let apiURL = `https://api.veriphone.io/v2/verify?phone=${userInput.value}&key=${myKey}`
