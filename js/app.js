@@ -28,6 +28,7 @@ function verifyInput(){
     if(userNum.length < 11 || userNum.length > 11){
         tooShort.innerHTML = 'Minimum number length should be 11';
         notNum.innerHTML = 'This is not a number'
+        resultContainer.innerHTML = '';
     }else if(isNaN(userNum) && userNum.length < 11){
         notNum.innerHTML = 'This is not a number'
         tooShort.innerHTML = '';
@@ -80,6 +81,8 @@ async function verifyNum(){
     if(!userText || userText.length < 11 || userText.length > 11 && isNaN(userText)){
         tooShort.innerHTML = 'Minimum number length should be 11';
         notNum.innerHTML = 'This is not a number'
+        resultContainer.innerHTML = '';
+
     }else{
         let myKey ='B7FD7E04FDFE45EEB374E8D7F745B1EE'
         let apiURL = `https://api.veriphone.io/v2/verify?phone=${userInput.value}&key=${myKey}`
