@@ -88,8 +88,8 @@ async function verifyNum(){
         try {
             const getNumData = await fetch(apiURL);
             result = await getNumData.json()
+            await displayData()
             console.log(result)
-            displayData()
 
         } catch (error) {
             console.log('theres an error: ', error)
